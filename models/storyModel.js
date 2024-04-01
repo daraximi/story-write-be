@@ -6,16 +6,25 @@ const storySchema = new mongoose.Schema(
             type: String,
             required: [true, 'Please provide a title'],
         },
+        author: {
+            type: String,
+            required: [true, 'Please provide an author'],
+        },
+        anonymous: {
+            type: String,
+            required: [true, 'Please provide an anonymous'],
+        },
+        domain: {
+            type: String,
+            required: [true, 'Please provide a domain'],
+        },
+        // body: {
+        //     type: String,
+        //     required: [true, 'Please provide a body'],
+        // },
         body: {
             type: String,
             required: [true, 'Please provide a body'],
-        },
-        anonymous: {
-            type: Boolean,
-        },
-        author: {
-            type: String,
-            required: [false, 'Please provide an author'],
         },
     },
     {

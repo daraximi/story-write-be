@@ -6,20 +6,37 @@ const Story = require('../models/storyModel');
 const getStories = asyncHandler(async (req, res) => {
     const stories = await Story.find({});
     res.status(200).json(stories);
-    console.log('200 OK');
+});
+
+// @desc    Get single story
+// @route   GET /api/stories/:id
+const getStory = asyncHandler(async (req, res) => {
+    const storyId = req.params.id;
+    const story = await Story.findById(storyId);
+    if (!story) {
+        res.status(404);
+        throw new Error('Story not found');
+    }
+    res.status(200).json(story);
 });
 
 //@desc Create new story
 //@route POST /api/stories
 const createStory = asyncHandler(async (req, res) => {
-    const { title, body, anonymous, author } = req.body;
+    console.log(req.body);
+    const { title, author, anonymous, domain, body } = req.body;
     if (!title || !body) {
         res.status(400);
         throw new Error('Please provide a title and body');
     }
-    const story = await Story.create({ title, body, anonymous, author });
+    const story = await Story.create({
+        title,
+        body,
+        anonymous,
+        domain,
+        author,
+    });
     res.status(201).json(story);
-    console.log('201 Created');
 });
 
-module.exports = { getStories, createStory };
+module.exports = { getStories, createStory, getStory };
